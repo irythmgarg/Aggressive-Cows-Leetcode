@@ -1,0 +1,40 @@
+// User function Template for C++
+
+class Solution {
+public:
+    // Function to check if cows can be placed with at least 'mid' distance between them
+    bool func(vector<int> &stalls, int mid, int k) {
+        int count = 1;                // First cow is placed at the first stall
+        int n = stalls.size();        
+        int last = stalls[0];         // Position of the last placed cow
+        
+        for (int i = 1; i < n; i++) { 
+            if (stalls[i] - last >= mid) {  // Check if the current stall satisfies the minimum distance
+                count++;                    // Place a cow
+                last = stalls[i];           // Update the position of the last placed cow
+                if (count >= k)             // If all cows are placed successfully, return true
+                    return true;
+            }
+        }
+        return false;                       // Return false if we cannot place all cows
+    }
+
+    int solve(int n, int k, vector<int> &stalls) {
+        // Binary search on the largest minimum distance
+        int s = 1;                           // Minimum distance (at least 1)
+        sort(stalls.begin(), stalls.end());  // Sort the stalls
+        int e = stalls[n - 1] - stalls[0];   // Maximum distance between the first and last stall
+        int ans = INT_MIN;                   // Store the largest minimum distance found
+
+        while (s <= e) {
+            int mid = (s + e) / 2;           // Calculate the mid-point
+            if (func(stalls, mid, k)) {      // Check if mid is a valid minimum distance
+                s = mid + 1;                 // Try for a larger distance
+                ans = max(ans, mid);         // Update the result
+            } else {
+                e = mid - 1;                 // Try for a smaller distance
+            }
+        }
+        return ans;                          // Return the largest minimum distance
+    }
+};
