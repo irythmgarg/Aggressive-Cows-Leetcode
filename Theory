@@ -1,0 +1,32 @@
+Question Statement
+You are given n stalls located at different positions (represented by a sorted array stalls) and an integer k,
+representing the number of cows. The task is to determine the largest minimum distance between any two cows,
+such that all k cows can be placed in the stalls.
+
+Solution Explanation
+Problem Requirements:
+
+Place k cows in n stalls such that the minimum distance between any two cows is maximized.
+The minimum distance between two cows can range from 1 to the difference between the first and last stall.
+Approach:
+
+Use binary search to determine the largest minimum distance:
+Start with the range [1, stalls[n - 1] - stalls[0]].
+Define a helper function func to check if cows can be placed with a given minimum distance (mid).
+Steps:
+
+Sort the stalls to simplify distance calculations.
+Perform binary search:
+For each mid, check if placing k cows with at least mid distance is possible using func.
+If possible, try for a larger distance by increasing s.
+Otherwise, reduce the distance by decreasing e.
+Returning the Result:
+
+After the binary search, ans contains the largest minimum distance where all cows can be placed.
+Complexity Analysis
+Time Complexity:
+
+Sorting: Sorting the stalls takes O(nlogn).
+Space Complexity:
+
+The space complexity is O(1) as no additional space is used.
